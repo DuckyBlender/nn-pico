@@ -22,7 +22,7 @@ fn custom_exp(x: f32) -> f32 {
     sum
 }
 
-fn softmax(input: &[f32; 10]) -> [f32; 10] {
+fn softmax(input: &SMatrix<f32, 1, 10>) -> SMatrix<f32, 1, 10> {
     let mut exp_values = [0.0; 10];
     let mut sum_exp = 0.0;
 
@@ -38,7 +38,7 @@ fn softmax(input: &[f32; 10]) -> [f32; 10] {
         softmax_values[i] = exp_values[i] / sum_exp;
     }
 
-    softmax_values
+    softmax_values.into()
 }
 
 fn sigmoid(x: f32) -> f32 {
@@ -101,11 +101,7 @@ async fn main(_spawner: Spawner) {
     nn += output_biases;
 
     // Softmax
-    // Convert to &[f32; 10] array to use the softmax function
-    let nn = nn.as_slice();
-    // make it &[f32; 10]
-    let nn: &[f32; 10] = nn.try_into().unwrap(); // safe because we know the length is 10
-    let nn = softmax(nn);
+    let nn = softmax(&nn);
 
     let len = nn.len();
     for i in 0..len {
