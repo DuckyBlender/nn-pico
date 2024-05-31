@@ -22,6 +22,25 @@ fn custom_exp(x: f32) -> f32 {
     sum
 }
 
+fn softmax(input: &[f32; 10]) -> [f32; 10] {
+    let mut exp_values = [0.0; 10];
+    let mut sum_exp = 0.0;
+
+    // Calculate the exponential of each input value and the sum of all exponentials
+    for i in 0..10 {
+        exp_values[i] = custom_exp(input[i]);
+        sum_exp += exp_values[i];
+    }
+
+    // Calculate the softmax values
+    let mut softmax_values = [0.0; 10];
+    for i in 0..10 {
+        softmax_values[i] = exp_values[i] / sum_exp;
+    }
+
+    softmax_values
+}
+
 fn sigmoid(x: f32) -> f32 {
     1.0 / (1.0 + custom_exp(-x))
 }
@@ -81,10 +100,12 @@ async fn main(_spawner: Spawner) {
     nn *= output_weights;
     nn += output_biases;
 
-    // Sigmoid
-    for i in 0..nn.len() {
-        nn[i] = sigmoid(nn[i]);
-    }
+    // Softmax
+    // Convert to &[f32; 10] array to use the softmax function
+    let nn = nn.as_slice();
+    // make it &[f32; 10]
+    let nn: &[f32; 10] = nn.try_into().unwrap(); // safe because we know the length is 10
+    let nn = softmax(nn);
 
     let len = nn.len();
     for i in 0..len {
