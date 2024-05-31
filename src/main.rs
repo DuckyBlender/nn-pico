@@ -8,9 +8,22 @@ use {defmt_rtt as _, panic_probe as _};
 
 mod weights;
 
-//write me sigmoid function
+fn custom_exp(x: f32) -> f32 {
+    // This is a custom implementation of the exponential function that uses a Taylor series
+    const TERMS: usize = 20;
+    let mut sum = 1.0;
+    let mut term = 1.0;
+
+    for n in 1..TERMS {
+        term *= x / n as f32;
+        sum += term;
+    }
+
+    sum
+}
+
 fn sigmoid(x: f32) -> f32 {
-    1.0 / (1.0 + (-x) * (-x))
+    1.0 / (1.0 + custom_exp(-x))
 }
 
 #[embassy_executor::main]
