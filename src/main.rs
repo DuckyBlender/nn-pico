@@ -3,6 +3,7 @@
 
 use embassy_executor::Spawner;
 use nalgebra::*;
+use num_traits::float::FloatCore;
 use weights::{HIDDEN_BIASES, HIDDEN_WEIGHTS, INPUT_BIASES, INPUT_EXAMPLE, INPUT_WEIGHTS};
 use {defmt_rtt as _, panic_probe as _};
 
@@ -48,8 +49,9 @@ fn softmax(input: &SMatrix<f32, 1, 10>) -> SMatrix<f32, 1, 10> {
 #[embassy_executor::main]
 async fn main(_spawner: Spawner) {
     let _p = embassy_rp::init(Default::default());
-    defmt::info!("starting crong");
+    defmt::info!("Starting NN");
 
+    let now = embassy_time::Instant::now();
     let input_weights: SMatrix<f32, 784, 10> =
         SMatrix::from_row_iterator(INPUT_WEIGHTS.iter().cloned());
     let input_biases: SMatrix<f32, 1, 10> =
@@ -58,6 +60,7 @@ async fn main(_spawner: Spawner) {
         SMatrix::from_row_iterator(HIDDEN_WEIGHTS.iter().cloned());
     let output_biases: SMatrix<f32, 1, 10> =
         SMatrix::from_row_iterator(HIDDEN_BIASES.iter().cloned());
+    let loaded_weights = embassy_time::Instant::now();
 
     let input: SMatrix<f32, 1, 784> = SMatrix::from_row_iterator(INPUT_EXAMPLE.iter().cloned());
 
@@ -75,8 +78,22 @@ async fn main(_spawner: Spawner) {
     // Softmax
     let nn = softmax(&nn);
 
+    let end = embassy_time::Instant::now();
+
+    defmt::info!(
+        "Loaded weights in {:?}ms",
+        (loaded_weights - now).as_millis()
+    );
+    defmt::info!("Ran NN in {:?}ms", (end - loaded_weights).as_millis());
+    defmt::info!("Total time: {:?}ms", (end - now).as_millis());
+    defmt::info!(
+        "You could run this {} times per second",
+        1000 / (end - now).as_millis()
+    );
+
     let len = nn.len();
     for i in 0..len {
-        defmt::info!("{}: {}", i, nn[i]);
+        let rounded_value = (nn[i] * 10000.0).round() / 100.0;
+        defmt::info!("{}: {}%", i, rounded_value);
     }
 }
