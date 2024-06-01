@@ -2,6 +2,8 @@
 
 This project is a simple, yet powerful, Neural Network (NN) written in Rust, designed to recognize hand-written numbers. It's trained on the MNIST dataset and runs entirely on a Raspberry Pi Pico using the [Embassy](https://embassy.dev/) framework.
 
+This project was written in a single day by me and [@F1L1Pv2](https://github.com/f1l1pv2)
+
 ## Image
 ![image](https://github.com/DuckyBlender/nn-pico/assets/42645784/7bb2d7c1-5349-47b8-a2af-b235a385dbab)
 
@@ -23,10 +25,6 @@ The NN itself consists of one hidden layer with 10 neurons. Despite its simplici
 ## Performance
 
 The performance of this NN is practically instant. More detailed benchmarks will be coming soon.
-
-## Authors
-
-This project was written in a single day by [@F1L1Pv2](https://github.com/f1l1pv2).
 
 ## Future Work
 
