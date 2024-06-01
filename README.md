@@ -5,9 +5,9 @@ This project is a simple, yet powerful, Neural Network (NN) written in Rust, des
 This project was written in a single day by me and [@F1L1Pv2](https://github.com/f1l1pv2)
 
 ## Image
-![image](https://github.com/DuckyBlender/nn-pico/assets/42645784/7bb2d7c1-5349-47b8-a2af-b235a385dbab)
+![Code_WusMUlsp3N](https://github.com/DuckyBlender/nn-pico/assets/42645784/fab60485-4005-41b9-9ee7-b1ef868905ab)
 
-The example input is a handwritten 0. The NN clearly chooses 0.
+We fed the NN a handwritten "0" and it correctly identified it!
 
 ## Features
 
@@ -24,11 +24,18 @@ The NN itself consists of one hidden layer with 10 neurons. Despite its simplici
 
 ## Performance
 
-The performance of this NN is practically instant. More detailed benchmarks will be coming soon.
+The performance of this NN is impressive:
+- Loading weights: 15ms
+- Running the NN: 17ms
+- Frame Rate: This NN could be ran at 30fps, making it suitable for real-time applications. Since it's single-core, there's potential for even more performance or accuracy improvements.
 
 ## Future Work
 
-We're always looking to improve and expand on this project. If you have any suggestions or want to contribute, feel free to open an issue or submit a pull request.
+We're always looking to improve and expand on this project. Some ideas we'd like to explore:
+
+- Create a web-based user interface to visualize and interact with the NN
+- Wire the Pico to a touch screen to create a standalone, interactive demo
+- Port this to a Garmin touch-screen watch
 
 ## License
 
