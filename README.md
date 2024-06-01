@@ -35,6 +35,7 @@ We're always looking to improve and expand on this project. Some ideas we'd like
 
 - Create a web-based user interface to visualize and interact with the NN
 - Wire the Pico to a touch screen to create a standalone, interactive demo
+- Training the NN on the Pico itself using backpropagation - imagine training a NN on a tiny microcontroller!
 - Port this to a Garmin touch-screen watch
 
 ## License
