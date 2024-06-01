@@ -2,6 +2,11 @@
 
 This project is a handwritten digit recognition system implemented entirely on a Raspberry Pi Pico. It uses a simple neural network (NN) with one hidden layer consisting of 10 neurons. The NN is trained on the MNIST dataset, a large database of handwritten digits that is commonly used for training various image processing systems.
 
+# Image
+![image](https://github.com/DuckyBlender/nn-pico/assets/42645784/7bb2d7c1-5349-47b8-a2af-b235a385dbab)
+
+The example input is a handwritten 0. The NN clearly chooses 0.
+
 ## Features
 
 - The system is capable of recognizing handwritten digits.
